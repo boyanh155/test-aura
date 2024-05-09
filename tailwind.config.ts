@@ -13,8 +13,22 @@ const config: Config = {
         "gradient-conic":
           "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
       },
+      // OVER WRITE TAILWIND COLORS
+      colors: {
+        primary: {
+          // MAIN RED
+          "100": "#ff2e4f",
+        },
+        neutral: {
+          "0": "#ffffff",
+          "400": "#cececf",
+
+          "800": "#27282e",
+        },
+      },
     },
   },
   plugins: [],
+  darkMode: "class",
 };
 export default config;
