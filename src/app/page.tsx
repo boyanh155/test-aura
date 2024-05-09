@@ -2,7 +2,10 @@
 
 import { useQuery } from "@tanstack/react-query";
 import Image from "next/image";
-
+import useModalStore from "@/stores/useModal";
+import BookingForm from "@/components/Booking/BookingForm";
+import axios from "axios";
+import { Carousel } from "flowbite-react";
 const restaurantDetail = {
   name: "gambrinus cherkasskiy",
   rating: 4,
@@ -12,20 +15,26 @@ const restaurantDetail = {
   avgCheck: 2000,
   restaurantType: "European,georgian cuisine",
 };
+
 const mockID = "randomUUID";
 export default function Home() {
+  const { closeModal, openModal } = useModalStore();
+
   const api = useQuery({
     queryKey: ["restaurant", mockID],
     queryFn: async () => {
       // here can use server action but for now
       // i will use fetch for retrieving data from the server
-      const res = await fetch(`/api/restaurant/${mockID}`);
-      return res.json();
+      return (await axios.get<any, any, any>(`/api/restaurant/${mockID}`)).data;
     },
   });
+  console.log(api);
+  const handleBookTable = () => {
+    openModal(<BookingForm />);
+  };
   return (
     // HOME PAGE
-    api.isLoading ? (
+    api?.isLoading ? (
       <svg
         className="animate-spin -ml-1 mr-3 h-5 w-5 text-white"
         xmlns="http://www.w3.org/2000/svg"
@@ -57,7 +66,7 @@ export default function Home() {
                 {Array(5)
                   .fill(false)
                   .map((_, index) =>
-                    index < Math.floor(restaurantDetail.rating) ? true : false
+                    index < Math.floor(api?.data.rating) ? true : false
                   )
                   .map((v, index) =>
                     v ? (
@@ -86,7 +95,7 @@ export default function Home() {
                   )}
               </div>
               <p className="text-primary-100 font-medium">
-                {restaurantDetail.totalRating}
+                {api?.data.totalRating}
               </p>
             </div>
 
@@ -142,142 +151,51 @@ export default function Home() {
             </div>
           </div>
           <h1 className="text-neutral-800 font-black text-[3rem] capitalize !leading-14">
-            {restaurantDetail.name}
+            {api?.data.name}
           </h1>
 
           {/* address */}
           <div className="flex flex-col text-neutral-600 gap-3 font-medium">
             <p className="">
               Open until&nbsp;
-              {restaurantDetail.closingTime}
+              {api?.data.closingTime}
             </p>
-            <p>{restaurantDetail.address}</p>
-            <p>Average check: {restaurantDetail.avgCheck}</p>
-            <p>{restaurantDetail.restaurantType}</p>
+            <p>{api?.data.address}</p>
+            <p>Average check: {api?.data.avgCheck}</p>
+            <p>{api?.data.restaurantType}</p>
           </div>
           <div className="mt-8 mx-auto">
-            <button className="uppercase text-base font-bold bg-primary-100 px-14 py-5 text-center text-neutral-0 rounded-full cursor-pointer hover:opacity-70 transition-all">
+            <button
+              id="bookingTableButton"
+              onClick={handleBookTable}
+              className="uppercase text-base font-bold bg-primary-100 px-14 py-5 text-center text-neutral-0 rounded-full cursor-pointer hover:opacity-70 transition-all"
+            >
               book a table
             </button>
           </div>
         </div>
         {/* SLIDE */}
-        <div
-          id="default-carousel"
-          className="relative flex-[3]  py-4"
-          data-carousel="slide"
-        >
+
+        <div className=" w-full h-full py-4 flex-[3]">
+          <Carousel>
+            <img
+              src="https://pasgo.vn/Upload/anh-chi-tiet/nha-hang-mk-kitchen-bar-ben-van-don-1-normal-2253769856506.webp"
+              alt="..."
+              className="w-full h-full"
+            />
+            <img
+              src="https://pasgo.vn/Upload/anh-chi-tiet/nha-hang-mk-kitchen-bar-ben-van-don-1-normal-2253769856506.webp"
+              alt="..."
+              className="w-full h-full"
+            />
+            <img
+              src="https://pasgo.vn/Upload/anh-chi-tiet/nha-hang-mk-kitchen-bar-ben-van-don-1-normal-2253769856506.webp"
+              alt="..."
+              className="w-full h-full"
+            />
+          </Carousel>
           {/* CONTENT */}
-          <div className="relative h-full overflow-hidden  ">
-            <div className="hidden duration-700 ease-in-out" data-carousel-item>
-              <div className="w-full h-full relative -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2">
-                <Image
-                  priority
-                  fill
-                  src="https://pasgo.vn/Upload/anh-chi-tiet/nha-hang-mk-kitchen-bar-ben-van-don-1-normal-2253769856506.webp"
-                  className="absolute block w-full h-full object-cover"
-                  alt="..."
-                />
-              </div>
-            </div>
 
-            <div className="hidden duration-700 ease-in-out" data-carousel-item>
-              <div className="w-full h-full relative -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2">
-                <Image
-                  priority
-                  fill
-                  src="https://pasgo.vn/Upload/anh-chi-tiet/nha-hang-mk-kitchen-bar-ben-van-don-1-normal-2253769856506.webp"
-                  className="absolute block w-full h-full object-cover "
-                  alt="..."
-                />
-              </div>
-            </div>
-
-            <div className="hidden duration-700 ease-in-out" data-carousel-item>
-              <div className="w-full h-full relative -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2">
-                <Image
-                  priority
-                  fill
-                  src="https://pasgo.vn/Upload/anh-chi-tiet/nha-hang-mk-kitchen-bar-ben-van-don-1-normal-2253769856506.webp"
-                  className="absolute block w-full h-full object-cover "
-                  alt="..."
-                />
-              </div>
-            </div>
-
-            <div className="hidden duration-700 ease-in-out" data-carousel-item>
-              <div className="w-full h-full relative -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2">
-                <Image
-                  priority
-                  fill
-                  src="https://pasgo.vn/Upload/anh-chi-tiet/nha-hang-mk-kitchen-bar-ben-van-don-1-normal-2253769856506.webp"
-                  className="absolute block w-full h-full object-cover "
-                  alt="..."
-                />
-              </div>
-            </div>
-
-            <div className="hidden duration-700 ease-in-out" data-carousel-item>
-              <div className="w-full h-full relative -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2">
-                <Image
-                  priority
-                  fill
-                  src="https://pasgo.vn/Upload/anh-chi-tiet/nha-hang-mk-kitchen-bar-ben-van-don-1-normal-2253769856506.webp"
-                  className="absolute block w-full h-full object-cover "
-                  alt="..."
-                />
-              </div>
-            </div>
-          </div>
-
-          <button
-            type="button"
-            className="absolute top-0 start-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none"
-            data-carousel-prev
-          >
-            <span className="inline-flex items-center justify-center w-10 h-10 rounded-full bg-white/30 dark:bg-gray-800/30 group-hover:bg-white/50 dark:group-hover:bg-gray-800/60 group-focus:ring-4 group-focus:ring-white dark:group-focus:ring-gray-800/70 group-focus:outline-none">
-              <svg
-                className="w-4 h-4 text-white dark:text-gray-800 rtl:rotate-180"
-                aria-hidden="true"
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 6 10"
-              >
-                <path
-                  stroke="currentColor"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M5 1 1 5l4 4"
-                />
-              </svg>
-              <span className="sr-only">Previous</span>
-            </span>
-          </button>
-          <button
-            type="button"
-            className="absolute top-0 end-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none"
-            data-carousel-next
-          >
-            <span className="inline-flex items-center justify-center w-10 h-10 rounded-full bg-white/30 dark:bg-gray-800/30 group-hover:bg-white/50 dark:group-hover:bg-gray-800/60 group-focus:ring-4 group-focus:ring-white dark:group-focus:ring-gray-800/70 group-focus:outline-none">
-              <svg
-                className="w-4 h-4 text-white dark:text-gray-800 rtl:rotate-180"
-                aria-hidden="true"
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 6 10"
-              >
-                <path
-                  stroke="currentColor"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="m1 9 4-4-4-4"
-                />
-              </svg>
-              <span className="sr-only">Next</span>
-            </span>
-          </button>
           <div />
         </div>
       </div>

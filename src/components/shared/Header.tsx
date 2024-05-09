@@ -1,6 +1,6 @@
 import Link from "next/link";
 import React from "react";
-
+import ToggleTheme from "@/components/ToggleTheme";
 const Header = () => {
   return (
     <div className="w-full bg-neutral-800 flex flex-row px-6 py-8 justify-between border-none">
@@ -56,6 +56,8 @@ const Header = () => {
       </div>
       {/* Information */}
       <div className="flex flex-row gap-12 items-center">
+        {/* Toggle theme */}
+        <ToggleTheme />
         {/* Phone */}
         <a className="font-bold text-neutral-0" href="tel:">
           8&nbsp;800&nbsp;777-30-19
