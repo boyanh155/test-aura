@@ -1,36 +1,63 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Candidate information
 
-## Getting Started
+- Name: Lê Hoàng Lộc
+- Email: locle2001@gmail.com
+- Phone: 0786791782
+- Address: Quận Bình Thạnh, TP.HCM
 
-First, run the development server:
+# Booking App
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+This is a Next.js project for a booking application.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Technologies Used
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- [Next.js](https://nextjs.org/)
+- [Tailwind CSS](https://tailwindcss.com/)
+- [React Query](https://react-query.tanstack.com/)
+- [Yup](https://github.com/jquense/yup)
+- [Zustand](https://github.com/pmndrs/zustand)
+- [MongoDB](https://www.mongodb.com/)
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+## Security
 
-## Learn More
+The application uses HMAC signature for security. HMAC (Hash-based Message Authentication Code) is a cryptographic hash function that ensures the integrity and authenticity of the data.
 
-To learn more about Next.js, take a look at the following resources:
+## Backend Serverless Functions
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+The application uses Next.js API routes to build serverless functions. API routes allow you to create serverless endpoints that can be used for handling backend logic and data operations.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+## Database
 
-## Deploy on Vercel
+The application uses MongoDB as the database. MongoDB is a popular NoSQL database that provides flexibility and scalability for storing and retrieving data.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Installation
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+1. Clone the repository:
+
+   ```bash
+   git clone https://github.com/boyanh155/test-aura
+   ```
+
+2. Navigate to the project directory:
+
+   ```bash
+   cd test-aura
+   ```
+
+3. Install the dependencies:
+
+   ```bash
+   npm install
+   ```
+
+4. Start the development server:
+
+   ```bash
+   npm run dev
+   ```
+
+6. Open your browser and visit `http://localhost:3000` to access the application.
+
+## Usage
+
+- Use the application to book appointments, manage bookings, and perform other related tasks.
